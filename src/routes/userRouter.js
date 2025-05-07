@@ -23,7 +23,7 @@ userRouter.post("/forget-password", forgetPassword)
 
 userRouter.post("/reset-password", reset_password)
 
-userRouter.get("/found-auth-details",Token,authorized("Student"), getAuthDetails)
+userRouter.get("/found-auth-details",Token,authorized("Student", "Teacher"), getAuthDetails)
 
 userRouter.delete("/delete-auth-profile", Token, authorized("Student"), deleteAuthDetails)
 

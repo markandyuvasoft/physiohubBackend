@@ -5,6 +5,7 @@ import cors from "cors";
 import morgan from "morgan"; 
 import userRouter from "./src/routes/userRouter.js";
 import courseRouter from "./src/routes/courseRouter.js";
+import flashcardCategoryRouter from "./src/routes/flashCardCategory.js";
 // import AuthRouter from "./src/routes/AuthRouter.js";
 // import adminAuth from "./firebaseAdmin.js";
 // import blogRouter from "./src/routes/BlogRouter.js";
@@ -42,6 +43,10 @@ app.use(morgan('dev'));
 
 app.use("/api/v1/user", userRouter)
 app.use("/api/v1", courseRouter)
+app.use("/api/v1", flashcardCategoryRouter)
+
+
+
 // app.use("/api/v1", AdminRouter)
 // app.use("/api/v1", FlashCardCategoryRouter) 
 
