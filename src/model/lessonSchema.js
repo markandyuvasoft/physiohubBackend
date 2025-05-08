@@ -13,27 +13,41 @@ const lessonSchema = new mongoose.Schema(
     lessonTopic: {
       type: String,
     },
+
     averageDuration: {
       type: String,
     },
+    
     isCompleted: {
       type: Boolean,
       default: false,
     },
-    // content: [
-    //   {
-    //    contenetText:String,
-    //    contentImage:URL,
-    //    contentVideo:URL
-    //   },
-    // ],
+
+    content: [
+      {
+        contentText: {
+          type: String,
+        },
+
+        contentImage: {
+          type: String,
+          public_id: { type: String },
+        },
+        contentVideo: {
+          type: String,
+          public_id: { type: String },
+        },
+      },
+    ],
     lessonNumber: {
       type: Number,
     },
-    // courseId: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: "Course",
-    // },
+
+    courseId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
+
   },
   { timestamps: true }
 );
