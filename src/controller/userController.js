@@ -77,11 +77,11 @@ export const loginAuth = async (req, res) => {
       });
     }
 
-    if (user.isEmail_verification === false) {
-      return res.status(400).json({
-        message: "Please verify your email address.",
-      });
-    }
+    // if (user.isEmail_verification === false) {
+    //   return res.status(400).json({
+    //     message: "Please verify your email address.",
+    //   });
+    // }
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.KEY, {
       expiresIn: "24h",
@@ -91,6 +91,7 @@ export const loginAuth = async (req, res) => {
       message: "Login successful!",
       authId: user._id,
       role: user.role,
+      isverify : user.isEmail_verification,
       token,
     });
   } catch (error) {
