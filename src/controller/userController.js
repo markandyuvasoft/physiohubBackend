@@ -184,7 +184,13 @@ export const verifyOtp = async (req, res) => {
       { new: true }
     );
 
-    res.status(200).json({ message: "OTP verified successfully." });
+    res
+      .status(200)
+      .json({
+        message: "OTP verified successfully.",
+        isEmail_verification: updateFields.isEmail_verification,
+        isForget: updateFields.isForget,
+      });
   } catch (error) {
     console.error("Error verifying OTP:", error);
     res
@@ -313,7 +319,6 @@ export const deleteAuthDetails = async (req, res) => {
   }
 };
 
-
 // for update details
 export const updateAuthDetails = async (req, res) => {
   try {
@@ -376,10 +381,8 @@ export const updateAuthDetails = async (req, res) => {
   }
 };
 
-
 // for update onBoarding details
 export const updateUserOnboarding = async (req, res) => {
-
   try {
     const { userId } = req.params;
     const { interest } = req.body;
@@ -406,9 +409,10 @@ export const updateUserOnboarding = async (req, res) => {
     res.status(200).json({
       message: "Update onBoarding details successfully",
     });
-
   } catch (error) {
     console.log(error.message);
-    res.status(500).json({ message: "Failed to update on boadring", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Failed to update on boadring", error: error.message });
   }
 };
