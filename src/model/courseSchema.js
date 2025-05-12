@@ -21,7 +21,7 @@ const courseSchema = new mongoose.Schema(
     },
 
     coursePrice: {
-      type: String,
+      type: Number,
     },
 
     categories: {
@@ -44,6 +44,10 @@ const courseSchema = new mongoose.Schema(
     quizs: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Quiz",
+    },
+
+    courseDuration : {
+      type : String
     },
 
     courseCreatedBy: {

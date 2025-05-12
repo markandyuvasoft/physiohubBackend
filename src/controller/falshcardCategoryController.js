@@ -1,4 +1,5 @@
 import FlashCardConfidance from "../model/flashConfidanceCategory.js";
+import FlashCardTopics from "../model/flashTopicsCategory.js";
 
 // for flash category level.....
 export const createCategoryFlashCard = async (req, res) => {
@@ -66,13 +67,13 @@ export const createFlashCardTopics = async (req, res) => {
   try {
     const teacherId = req.user.id;
 
-    const { confidance_level } = req.body;
+    const { topicFlashName } = req.body;
 
     if (!teacherId) {
       return res.status(401).json({ message: "Teacher ID not found in token" });
     }
 
-    const checkTopics = await FlashCardConfidance.findOne({ confidance_level });
+    const checkTopics = await FlashCardTopics.findOne({ topicFlashName });
 
     if (checkTopics) {
       return res.status(404).json({
@@ -80,8 +81,8 @@ export const createFlashCardTopics = async (req, res) => {
       });
     }
 
-    const saveTopics = new FlashCardConfidance({
-      confidance_level,
+    const saveTopics = new FlashCardTopics({
+      topicFlashName,
     });
 
     const newTopics = await saveTopics.save();
@@ -92,6 +93,7 @@ export const createFlashCardTopics = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
+      error : error.message,
       message: "internal server error",
     });
   }
@@ -100,7 +102,7 @@ export const createFlashCardTopics = async (req, res) => {
 
 export const getFlashCardTopics = async (req, res) => {
   try {
-    const checkAll = await FlashCardConfidance.find({});
+    const checkAll = await FlashCardTopics.find({});
 
     if (checkAll.length > 0) {
       res.status(200).json({

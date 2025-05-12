@@ -21,6 +21,7 @@ export const createCourse = async (req, res) => {
       categories,
       total_number_of_lesson,
       total_number_of_quize,
+      courseDuration
     } = req.body;
 
     if (!teacherId) {
@@ -65,13 +66,14 @@ export const createCourse = async (req, res) => {
       total_number_of_lesson,
       total_number_of_quize,
       courseImage: courseImage?.url,
+      courseDuration,
       courseCreatedBy: teacherId,
       isFree,
     });
 
     const savedCourse = await newCourse.save();
 
-    res.status(201).json({
+    res.status(200).json({
       message: "Course created successfully!",
     });
   } catch (error) {
@@ -153,6 +155,7 @@ export const updateCourseDetails = async (req, res) => {
       categories,
       total_number_of_lesson,
       total_number_of_quize,
+      courseDuration
     } = req.body;
 
     const updateFields = {
@@ -162,6 +165,7 @@ export const updateCourseDetails = async (req, res) => {
       categories,
       total_number_of_lesson,
       total_number_of_quize,
+      courseDuration,
       courseId
     };
 

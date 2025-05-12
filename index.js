@@ -8,6 +8,7 @@ import courseRouter from "./src/routes/courseRouter.js";
 import flashcardCategoryRouter from "./src/routes/flashCardCategory.js";
 import lessonRouter from "./src/routes/lessonRoutes.js";
 import AdminRouter from "./src/routes/adminRouter.js";
+import blogRouter from "./src/routes/blogRouter.js";
 // import AuthRouter from "./src/routes/AuthRouter.js";
 // import adminAuth from "./firebaseAdmin.js";
 // import blogRouter from "./src/routes/BlogRouter.js";
@@ -37,6 +38,9 @@ app.use("/api/v1", courseRouter)
 app.use("/api/v1", flashcardCategoryRouter)
 app.use("/api/v1", lessonRouter)
 app.use("/api/v1", AdminRouter)
+app.use("/api/v1", blogRouter)
+
+
 
 
 
