@@ -95,16 +95,11 @@ export const foundCourse = async (req, res) => {
       })
       .sort({ createdAt: -1 });
 
-    if (checkCourse.length > 0) {
       res.status(200).json({
         message: "all course are",
         allCourses: checkCourse,
       });
-    } else {
-      res.status(404).json({
-        message: "not found any course",
-      });
-    }
+   
   } catch (error) {
     console.error("Error found course:", error);
     res.status(500).json({

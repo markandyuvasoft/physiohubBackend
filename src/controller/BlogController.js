@@ -91,17 +91,12 @@ export const getAllBlogs = async (req, res) => {
       select: "fullName profileImage",
     });
 
-    if (checkBlogs.length > 0 || publiCBlog.length > 0) {
       res.status(200).json({
         message: "all featured blogs",
         allBlogs: checkBlogs,
         publicBlog : publiCBlog
       });
-    } else {
-      res.status(404).json({
-        message: "not found any blogs",
-      });
-    }
+   
   } catch (error) {
     res.status(500).json({
       message: "internal server error",
