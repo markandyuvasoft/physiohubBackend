@@ -83,13 +83,19 @@ export const getAllBlogs = async (req, res) => {
   try {
     const checkBlogs = await BlogDraft.find({}).populate({
       path: "blogCreatedBy",
-      select: "fullName",
+      select: "fullName profileImage",
     });
 
-    if (checkBlogs.length > 0) {
+    const publiCBlog = await BlogPublic.find({}).populate({
+      path: "blogCreatedBy",
+      select: "fullName profileImage",
+    });
+
+    if (checkBlogs.length > 0 || publiCBlog.length > 0) {
       res.status(200).json({
         message: "all featured blogs",
         allBlogs: checkBlogs,
+        publicBlog : publiCBlog
       });
     } else {
       res.status(404).json({
@@ -97,7 +103,7 @@ export const getAllBlogs = async (req, res) => {
       });
     }
   } catch (error) {
-    req.status(500).json({
+    res.status(500).json({
       message: "internal server error",
     });
   }
@@ -107,11 +113,14 @@ export const deleteBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
 
-    const checkBlogs = await BlogDraft.findOneAndDelete({ _id: blogId });
+     const draftBlog = await BlogDraft.findOneAndDelete({ _id: blogId });
 
-    if (checkBlogs) {
-      res.status(200).json({
-        message: "blog deleted successfully",
+    // Attempt to delete the blog from BlogPublic collection
+    const publicBlog = await BlogPublic.findOneAndDelete({ _id: blogId });
+
+   if (draftBlog || publicBlog) {
+      return res.status(200).json({
+        message: "Blog deleted successfully",
       });
     } else {
       res.status(404).json({
@@ -119,7 +128,7 @@ export const deleteBlog = async (req, res) => {
       });
     }
   } catch (error) {
-    req.status(500).json({
+    res.status(500).json({
       message: "internal server error",
     });
   }

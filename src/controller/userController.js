@@ -372,6 +372,7 @@ export const updateAuthDetails = async (req, res) => {
 
     res.status(200).json({
       message: "User details updated successfully",
+      updatedUser : updatedUser 
     });
   } catch (error) {
     console.log(error.message);
