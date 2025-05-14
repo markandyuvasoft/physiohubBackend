@@ -91,12 +91,11 @@ export const getAllBlogs = async (req, res) => {
       select: "fullName profileImage",
     });
 
-      res.status(200).json({
-        message: "all featured blogs",
-        allBlogs: checkBlogs,
-        publicBlog : publiCBlog
-      });
-   
+    res.status(200).json({
+      message: "all featured blogs",
+      allBlogs: checkBlogs,
+      publicBlog: publiCBlog,
+    });
   } catch (error) {
     res.status(500).json({
       message: "internal server error",
@@ -108,12 +107,12 @@ export const deleteBlog = async (req, res) => {
   try {
     const { blogId } = req.params;
 
-     const draftBlog = await BlogDraft.findOneAndDelete({ _id: blogId });
+    const draftBlog = await BlogDraft.findOneAndDelete({ _id: blogId });
 
     // Attempt to delete the blog from BlogPublic collection
     const publicBlog = await BlogPublic.findOneAndDelete({ _id: blogId });
 
-   if (draftBlog || publicBlog) {
+    if (draftBlog || publicBlog) {
       return res.status(200).json({
         message: "Blog deleted successfully",
       });
@@ -167,8 +166,7 @@ export const updateBlog = async (req, res) => {
       updateFields.thumbnailBlogImage = thumbnailBlogImageUpload.secure_url;
     }
 
-
-      const updatedBlog = await BlogModel.findOneAndUpdate(
+    const updatedBlog = await BlogModel.findOneAndUpdate(
       { _id: blogId, teacherId },
       { $set: updateFields },
       { new: true }
@@ -182,10 +180,34 @@ export const updateBlog = async (req, res) => {
       message: `Blog updated successfully in ${saveAsBlog}`,
       blog: updatedBlog,
     });
-
   } catch (error) {
-     console.error("Error updating blog:", error);
+    console.error("Error updating blog:", error);
     res.status(500).json({ message: "Internal server error" });
-  
+  }
+};
+
+export const detailedBlogCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+
+    const checkBlogCategory = await BlogPublic.find({ category }).populate({
+      path: "blogCreatedBy",
+      select: "fullName",
+    });
+
+    if (checkBlogCategory) {
+      res.status(200).json({
+        message: "category according blogs",
+        feature_blog_detaild: checkBlogCategory,
+      });
+    } else {
+      res.status(404).json({
+        message: "not found any featured categories",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "internal server error",
+    });
   }
 };

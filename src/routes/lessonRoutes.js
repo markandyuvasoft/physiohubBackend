@@ -7,15 +7,15 @@ import { upload } from "../../middleware/image.js"
 const lessonRouter = express.Router()
 
 lessonRouter.post("/create-lesson",Token, authorized("Teacher"),  upload.fields([
-    { name: "content[0][contentImage]", maxCount: 1 },
-    { name: "content[0][contentVideo]", maxCount: 1 },
+    { name: "content[contentImage]", maxCount: 1 },
+    { name: "content[contentVideo]", maxCount: 1 },
   ]), lessonCreate )
 
 lessonRouter.get("/found-all-lesson", Token, authorized("Student", "Teacher"), foundLesson)
 
 lessonRouter.put("/update-lesson/:lessonId",Token, authorized("Teacher"),upload.fields([
-    { name: "content[0][contentImage]", maxCount: 1 },
-    { name: "content[0][contentVideo]", maxCount: 1 },
+  { name: "content[contentImage]", maxCount: 1 },
+    { name: "content[contentVideo]", maxCount: 1 },
   ]), updateLessonDetails)
 
 lessonRouter.delete("/delete-lesson/:lessonId", Token, authorized("Teacher"), deleteLesson)

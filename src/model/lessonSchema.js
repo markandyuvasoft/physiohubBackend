@@ -23,8 +23,7 @@ const lessonSchema = new mongoose.Schema(
       default: false,
     },
 
-    content: [
-      {
+    content: {
         contentText: {
           type: String,
         },
@@ -37,8 +36,8 @@ const lessonSchema = new mongoose.Schema(
           type: String,
           public_id: { type: String },
         },
-      },
-    ],
+    },
+    
     lessonNumber: {
       type: Number,
     },

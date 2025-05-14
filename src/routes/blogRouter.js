@@ -5,6 +5,7 @@ import { authorized } from "../../middleware/role.js";
 import {
   createBlog,
   deleteBlog,
+  detailedBlogCategory,
   getAllBlogs,
   updateBlog,
 } from "../controller/BlogController.js";
@@ -27,6 +28,14 @@ blogRouter.get(
   Token,
   authorized("Teacher", "Student"),
   getAllBlogs
+);
+
+
+blogRouter.get(
+  "/found-blog-category/:category",
+  Token,
+  authorized("Teacher", "Student"),
+  detailedBlogCategory
 );
 
 blogRouter.delete(
