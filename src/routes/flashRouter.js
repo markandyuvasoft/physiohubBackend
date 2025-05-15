@@ -1,5 +1,5 @@
 import express from 'express';
-import { createFlahCard } from '../controller/flashController.js';
+import { createFlashCard } from '../controller/flashController.js';
 import { Token } from '../../middleware/checkAuth.js';
 import { upload } from '../../middleware/image.js';
 import { authorized } from '../../middleware/role.js';
@@ -15,10 +15,11 @@ flashRouter.post(
   Token,
   authorized("Teacher"),
   upload.fields([
-    { name: 'flashImage', maxCount: 1 },
-    { name: 'container', maxCount: 20 }, 
-  ]),
-  createFlahCard
+  { name: "frontImage", maxCount: 1 },
+  { name: "backImage", maxCount: 1 },
+])
+,
+  createFlashCard
 );
 
 

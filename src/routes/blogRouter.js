@@ -6,6 +6,7 @@ import {
   createBlog,
   deleteBlog,
   detailedBlogCategory,
+  detailedSingleBlog,
   getAllBlogs,
   updateBlog,
 } from "../controller/BlogController.js";
@@ -37,6 +38,16 @@ blogRouter.get(
   authorized("Teacher", "Student"),
   detailedBlogCategory
 );
+
+
+blogRouter.get(
+  "/found-blog-single/:_id",
+  Token,
+  authorized("Teacher", "Student"),
+  detailedSingleBlog
+);
+
+
 
 blogRouter.delete(
   "/delete-blog/:blogId",

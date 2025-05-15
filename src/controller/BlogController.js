@@ -211,3 +211,31 @@ export const detailedBlogCategory = async (req, res) => {
     });
   }
 };
+
+
+
+export const detailedSingleBlog = async (req, res) => {
+  try {
+    const { _id } = req.params;
+
+    const checkBlogSingle = await BlogPublic.findById({ _id }).populate({
+      path: "blogCreatedBy",
+      select: "fullName profileImage",
+    });
+
+    if (checkBlogSingle) {
+      res.status(200).json({
+        message: "single blogs detailed",
+        feature_single_blog: checkBlogSingle,
+      });
+    } else {
+      res.status(404).json({
+        message: "not found any featured blog",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "internal server error",
+    });
+  }
+};

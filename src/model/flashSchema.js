@@ -1,42 +1,42 @@
 import mongoose from "mongoose";
 
-const flashSchema = new mongoose.Schema({
-  title: {
-    type: String,
-  },
+const flashSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+    },
 
-  description: {
-    type: String,
-  },
+    description: {
+      type: String,
+    },
 
-  hint: {
-    type: String,
-  },
+    hint: {
+      type: String,
+    },
 
-  subject: {
-    type: String,
-  },
-  masteryLevel: {
-    type: String,
-  },
+    subject: {
+      type: String,
+    },
+    masteryLevel: {
+      type: String,
+    },
 
-  confidance_level: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "FlashCardConfidance",
-  },
+    confidance_level: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FlashCardConfidance",
+    },
 
-  flash_topics: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "FlashCardTopics",
-  },
+    flash_topics: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "FlashCardTopics",
+    },
 
-  flashImage: {
-    type: String,
-    public_id: { type: String },
-  },
+    flashImage: {
+      type: String,
+      public_id: { type: String },
+    },
 
-  container: [
-    {
+    container: {
       frontTitle: {
         type: String,
       },
@@ -44,9 +44,7 @@ const flashSchema = new mongoose.Schema({
         type: String,
         public_id: { type: String },
       },
-    },
 
-    {
       backTitle: {
         type: String,
       },
@@ -55,12 +53,10 @@ const flashSchema = new mongoose.Schema({
         public_id: { type: String },
       },
     },
-  ],
+  },
+  { timestamps: true }
+);
 
+const FlashCard = mongoose.model("FlashCard", flashSchema);
 
-},{timestamps : true})
-
-
-const FlashCard = mongoose.model("FlashCard", flashSchema)
-
-export default FlashCard
+export default FlashCard;
