@@ -36,6 +36,16 @@ const flashSchema = new mongoose.Schema(
       public_id: { type: String },
     },
 
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
+    
+    numReviews: {
+      type: Number,
+      default: 0,
+    },
+
     container: {
       frontTitle: {
         type: String,

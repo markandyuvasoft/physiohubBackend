@@ -4,6 +4,7 @@ import { Token } from "../../middleware/checkAuth.js";
 import { authorized } from "../../middleware/role.js";
 import { upload } from "../../middleware/image.js";
 import { getStudentMonthlyAttendance, markAttendance } from "../controller/attendanceController.js";
+import { getFlashCardReviews, submitReview } from "../controller/ratingController.js";
 
 
 
@@ -38,6 +39,13 @@ userRouter.post("/attendance",Token, authorized("Student", "Admin", "Teacher"), 
 
 userRouter.get("/get-attandance/:studentId", Token, authorized("Student", "Admin", "Teacher"), getStudentMonthlyAttendance);
 
+
+
+// FOR REVIEW AND RATING
+
+userRouter.post("/add-review", Token, authorized("Student", "Teacher"), submitReview)
+
+userRouter.get("/get-flash-review/:flashCardId", Token, authorized("Student", "Admin", "Teacher"), getFlashCardReviews);
 
 
 export default userRouter;
