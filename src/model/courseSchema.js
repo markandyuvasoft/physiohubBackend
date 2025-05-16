@@ -28,18 +28,20 @@ const courseSchema = new mongoose.Schema(
       type: String,
     },
 
-    total_number_of_lesson: {
-      type: Number,
-    },
+    // total_number_of_lesson: {
+    //   type: Number,
+    // },
 
-    total_number_of_quize: {
-      type: Number,
-    },
+    // total_number_of_quize: {
+    //   type: Number,
+    // },
 
-    lesson: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Lesson",
-    },
+     lesson: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Lesson",
+      },
+    ],
 
     quizs: {
       type: mongoose.Schema.Types.ObjectId,

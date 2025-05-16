@@ -19,15 +19,27 @@ export const createCourse = async (req, res) => {
       courseDescription,
       coursePrice,
       categories,
-      total_number_of_lesson,
-      total_number_of_quize,
-      courseDuration
+      // total_number_of_lesson,
+      // total_number_of_quize,
+      courseDuration,
+      lesson
     } = req.body;
 
     if (!teacherId) {
       return res
         .status(401)
         .json({ message: "Teacher ID not found in request" });
+    }
+
+    if(!lesson) {
+      return res.status(400).json({
+        status : "false",
+        message : "lesson must be required"
+      })
+    }
+
+    if (!Array.isArray(lesson)) {
+      return res.status(400).json({ message: "'lesson' must be an array of lesson IDs." });
     }
 
     const checkCourse = await Course.findOne({ courseName });
@@ -63,18 +75,20 @@ export const createCourse = async (req, res) => {
       courseDescription,
       coursePrice,
       categories,
-      total_number_of_lesson,
-      total_number_of_quize,
+      // total_number_of_lesson,
+      // total_number_of_quize,
       courseImage: courseImage?.url,
       courseDuration,
       courseCreatedBy: teacherId,
       isFree,
+      lesson
     });
 
     const savedCourse = await newCourse.save();
 
     res.status(200).json({
       message: "Course created successfully!",
+      newCourses : savedCourse
     });
   } catch (error) {
     console.error("Error creating course:", error);
@@ -92,6 +106,10 @@ export const foundCourse = async (req, res) => {
       .populate({
         path: "courseCreatedBy",
         select: "fullName",
+      })
+      .populate({
+        path: "lesson",
+        select: "lessonName",
       })
       .sort({ createdAt: -1 });
 
@@ -212,6 +230,9 @@ export const detailedSingleCourse = async (req, res) => {
     const checkSingleCourse = await Course.findById({ _id }).populate({
         path: "courseCreatedBy",
         select: "fullName",
+      }).populate({
+        path: "lesson",
+        select: "lessonName",
       })
 
     if (checkSingleCourse) {
