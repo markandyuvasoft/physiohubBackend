@@ -200,3 +200,33 @@ export const updateCourseDetails = async (req, res) => {
       .json({ message: "Failed to update course", error: error.message });
   }
 };
+
+
+
+// single course............
+
+export const detailedSingleCourse = async (req, res) => {
+  try {
+    const { _id } = req.params;
+
+    const checkSingleCourse = await Course.findById({ _id }).populate({
+        path: "courseCreatedBy",
+        select: "fullName",
+      })
+
+    if (checkSingleCourse) {
+      res.status(200).json({
+        message: "single course detailed",
+        singleCourseDetailed: checkSingleCourse,
+      });
+    } else {
+      res.status(404).json({
+        message: "not found any featured course",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "internal server error",
+    });
+  }
+};

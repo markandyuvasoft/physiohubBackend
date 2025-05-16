@@ -42,7 +42,7 @@ export const submitReview = async (req, res) => {
 
     res
       .status(200)
-      .json({ message: "Review submitted successfully.", userReview });
+      .json({ message: "Review submitted successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

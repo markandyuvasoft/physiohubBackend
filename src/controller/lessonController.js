@@ -364,3 +364,27 @@ export const deleteLesson = async (req, res) => {
     });
   }
 };
+
+
+export const detailedSingleLesson = async (req, res) => {
+  try {
+    const { _id } = req.params;
+
+    const checkLesson = await Lesson.findById({ _id })
+
+    if (checkLesson) {
+      res.status(200).json({
+        message: "single lesson detailed",
+        feature_single_lesson: checkLesson,
+      });
+    } else {
+      res.status(404).json({
+        message: "not found any featured lesson",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "internal server error",
+    });
+  }
+};

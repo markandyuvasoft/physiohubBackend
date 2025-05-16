@@ -263,7 +263,7 @@ export const detailedSingleFlash = async (req, res) => {
 
     res.status(200).json({
       message: "single falsh detailed",
-      feature_single_blog: checkSingleFlash,
+      feature_single_card: checkSingleFlash,
     });
   } catch (error) {
     res.status(500).json({

@@ -1,7 +1,7 @@
 import express from "express"
 import { Token } from "../../middleware/checkAuth.js"
 import { authorized } from "../../middleware/role.js"
-import { deleteLesson, foundLesson, lessonCreate, updateLessonDetails } from "../controller/lessonController.js"
+import { deleteLesson, detailedSingleLesson, foundLesson, lessonCreate, updateLessonDetails } from "../controller/lessonController.js"
 import { upload } from "../../middleware/image.js"
 
 const lessonRouter = express.Router()
@@ -19,5 +19,12 @@ lessonRouter.put("/update-lesson/:lessonId",Token, authorized("Teacher"),upload.
   ]), updateLessonDetails)
 
 lessonRouter.delete("/delete-lesson/:lessonId", Token, authorized("Teacher"), deleteLesson)
+
+lessonRouter.get(
+  "/found-lesson-single/:_id",
+  Token,
+  authorized("Teacher", "Student"),
+  detailedSingleLesson
+);
 
 export default lessonRouter
