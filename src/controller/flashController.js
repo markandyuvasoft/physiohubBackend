@@ -30,6 +30,19 @@ export const createFlashCard = async (req, res) => {
         .json({ message: "Teacher ID not found in request" });
     }
 
+    if(!confidance_level) {
+      return res.status(400).json({
+        message : "level must be select"
+      })
+    }
+
+    
+    if(!flash_topics) {
+      return res.status(400).json({
+        message : "Topic must be select"
+      })
+    }
+
     let flashImageData = null;
     if (req.files?.flashImage) {
       const result = await cloudinary.uploader.upload(
@@ -85,7 +98,7 @@ export const createFlashCard = async (req, res) => {
     });
     await newFlashCard.save();
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       message: "Flash card created successfully",
       flashCard: newFlashCard,
