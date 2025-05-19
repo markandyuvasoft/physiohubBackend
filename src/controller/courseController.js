@@ -168,7 +168,8 @@ export const updateCourseDetails = async (req, res) => {
       categories,
       total_number_of_lesson,
       total_number_of_quize,
-      courseDuration
+      courseDuration,
+      lesson
     } = req.body;
 
     const updateFields = {
@@ -179,8 +180,14 @@ export const updateCourseDetails = async (req, res) => {
       total_number_of_lesson,
       total_number_of_quize,
       courseDuration,
+      lesson,
       courseId
     };
+
+
+      if (!Array.isArray(lesson)) {
+      return res.status(400).json({ message: "'lesson' must be an array of lesson IDs." });
+    }
 
     if (req.files && req.files.courseImage) {
       const courseImageUpload = await cloudinary.uploader.upload(
