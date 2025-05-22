@@ -2,6 +2,7 @@ import Quiz from "../model/quizSchema.js";
 import dotenv from "dotenv";
 dotenv.config();
 import { v2 as cloudinary } from "cloudinary";
+import User from "../model/userSchema.js";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -116,6 +117,18 @@ export const getAllQuiz = async (req, res) => {
 
 export const detailedSingleQuiz = async (req, res) => {
   try {
+
+    const studentId = req.user.id;
+
+    if (!studentId) {
+      return res
+        .status(401)
+        .json({ message: "student ID not found in request" });
+    }
+
+      const getData = await User.findOne({ _id: studentId })
+
+
     const { quizTopics } = req.params;
 
     const checkSingleQuiz = await Quiz.find({ quizTopics });
@@ -127,7 +140,9 @@ export const detailedSingleQuiz = async (req, res) => {
     res.status(200).json({
       message: "Single flash detailed",
       feature_single_quiz: checkSingleQuiz,
-      totalQuiz
+      totalQuiz,
+      StudentName : getData.fullName,
+      studentImage : getData.profileImage
     });
 
   } catch (error) {

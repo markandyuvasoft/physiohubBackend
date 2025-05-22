@@ -15,6 +15,11 @@ const quizSchema = new mongoose.Schema(
       type: String,
     },
 
+    creatorId : {
+      type : mongoose.Schema.Types.ObjectId,
+      ref : "Auth"
+    },
+
     question: [
       {
         questionImage: {
@@ -42,6 +47,17 @@ const quizSchema = new mongoose.Schema(
         explanation: {
           type: String,
         },
+
+        timeLimit: {
+          type: Number,
+          default: 60, // 1 minute
+        },
+
+        points: {
+          type: Number,
+          default: 0,
+        },
+
       },
     ],
   },
