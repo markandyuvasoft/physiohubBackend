@@ -10,11 +10,8 @@ import lessonRouter from "./src/routes/lessonRoutes.js";
 import AdminRouter from "./src/routes/adminRouter.js";
 import blogRouter from "./src/routes/blogRouter.js";
 import flashRouter from "./src/routes/flashRouter.js";
-// import AuthRouter from "./src/routes/AuthRouter.js";
-// import adminAuth from "./firebaseAdmin.js";
-// import blogRouter from "./src/routes/BlogRouter.js";
-// import AdminRouter from "./src/routes/AdminRouter.js";
-// import FlashCardCategoryRouter from "./src/routes/FlashCardCategoryRouter.js";
+import quizRouter from "./src/routes/quizRouter.js";
+
 
 
 dotenv.config();
@@ -38,6 +35,8 @@ app.use("/api/v1", lessonRouter)
 app.use("/api/v1", AdminRouter)
 app.use("/api/v1", blogRouter)
 app.use("/api/v1", flashRouter)
+app.use("/api/v1", quizRouter)
+
 
 
 
